@@ -9,6 +9,11 @@ project(harris_package)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   rospy
+
+  #add two lines
+  message_generation
+  actionlib_msgs
+
 )
 
 ## System dependencies are found with CMake's conventions
@@ -59,17 +64,19 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
+ add_action_files(
+  DIRECTORY action
+   FILES
+   Fibonacci.action
+
+ )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+ generate_messages(
+   DEPENDENCIES
+   std_msgs  # Or other packages containing msgs
+   actionlib_msgs
+ )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -102,9 +109,11 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES harris_package
-#  CATKIN_DEPENDS rospy
+   message_runtime
+   LIBRARIES harris_package
+   CATKIN_DEPENDS rospy
 #  DEPENDS system_lib
+   actionlib_msgs
 )
 
 ###########
